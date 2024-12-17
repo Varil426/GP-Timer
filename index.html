@@ -9,6 +9,7 @@
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱️</text></svg>"
     />
+    <script src="initializer.js" type="module"></script>
   </head>
   <body>
     <div class="stopwatch__wrapper">
@@ -19,9 +20,15 @@
       </div>
 
       <div class="stopwatch__controls">
-        <button class="stopwatch__button stopwatch__button--play">⏯️</button>
-        <button class="stopwatch__button stopwatch__button--pause">🔄️</button>
-        <button class="stopwatch__button stopwatch__button--restart">🔀</button>
+        <button class="stopwatch__button stopwatch__button--play-pause">
+          ⏯️
+        </button>
+        <button class="stopwatch__button stopwatch__button--restart">
+          🔄️
+        </button>
+        <button class="stopwatch__button stopwatch__button--backgroundSwitch">
+          🔀
+        </button>
         <!-- TODO Add background selection and randomizer -->
       </div>
     </div>
