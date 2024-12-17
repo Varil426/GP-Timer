@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
+
+:root {
+  --border-radius: 8px;
+}
+
+body {
+  margin: 0px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Doto", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "ROND" 0;
+}
+
+@layer components {
+  .stopwatch__wrapper {
+    width: 60%;
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+
+    & .stopwatch__display {
+      font-size: 128px;
+      align-self: center;
+      margin-bottom: 20px;
+    }
+
+    & .stopwatch__controls {
+      display: flex;
+      gap: 10px;
+
+      & .stopwatch__button {
+        font-size: 42px;
+        border-radius: var(--border-radius);
+        border: none;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 10px 5px;
+
+        line-height: 100%;
+
+        &:last-child {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
