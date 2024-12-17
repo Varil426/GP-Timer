@@ -18,6 +18,11 @@ body {
   font-weight: 400;
   font-style: normal;
   font-variation-settings: "ROND" 0;
+
+  /* TODO Background changer */
+  background-image: url("/assets/bg-1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @layer components {
@@ -36,6 +41,7 @@ body {
     }
 
     & .stopwatch__controls {
+      /* TODO Style :hover */
       display: flex;
       gap: 10px;
 
