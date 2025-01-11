@@ -1,3 +1,5 @@
+const $5_MINUTES = 5 * 60 * 1000; // 5 minutes
+
 export const stopwatchModule = () => {
   const stopwatch = document.querySelector(".stopwatch__wrapper");
   if (!stopwatch) throw "Couldn't find the stopwatch!";
@@ -11,12 +13,16 @@ export const stopwatchModule = () => {
   const restartButton = stopwatch.querySelector(".stopwatch__button--restart");
   if (!startPauseButton || !restartButton) throw "Issue with buttons!";
 
-  const targetTime = 5 * 60 * 1000; // 5 minutes
-
+  let targetTime = $5_MINUTES; // TODO Custom or selectable time
   let isRunning = false;
   let start = null;
   let timerIntervalId = null;
 
+  /**
+   * Converts milliseconds into mm:ss string.
+   * @param {number} value A time span in milliseconds.
+   * @returns String in mm:ss format.
+   */
   const millisecondsToString = (value) =>
     secondsToString(Math.floor(value / 1000));
 
@@ -29,21 +35,49 @@ export const stopwatchModule = () => {
       .padStart(2, 0)}`;
   };
 
+  /**
+   * Updates the display.
+   * @param {string} value
+   */
   const updateDisplay = (value) => {
     display.innerHTML = value;
   };
 
+  const updateTimer = () => {
+    const timeLeft = start + targetTime - Date.now();
+
+    updateDisplay(millisecondsToString(timeLeft));
+
+    if (timeLeft <= 0) {
+      pauseTimer();
+      // TODO Timer ended - maybe flash?
+      updateDisplay("00:00");
+      alert("The time has come!");
+    }
+  };
+
   const startTimer = () => {
     start = Date.now();
-
-    // TODO Start from here
-    // setInterval();
-
+    timerIntervalId = setInterval(updateTimer, 200);
     isRunning = true;
+  };
+
+  const pauseTimer = () => {
+    clearInterval(timerIntervalId);
+    targetTime = targetTime - (Date.now() - start);
+    updateDisplay(millisecondsToString(targetTime));
+    isRunning = false;
+  };
+
+  const restartTimer = () => {
+    pauseTimer();
+    targetTime = $5_MINUTES;
+    startTimer();
   };
 
   const startPauseButtonOnClick = () => {
     if (isRunning) {
+      pauseTimer();
     } else {
       startTimer();
     }
@@ -51,6 +85,7 @@ export const stopwatchModule = () => {
 
   const restartButtonOnClick = () => {
     if (isRunning) {
+      restartTimer();
     } else {
       startTimer();
     }
@@ -58,4 +93,7 @@ export const stopwatchModule = () => {
 
   // Init
   updateDisplay(millisecondsToString(targetTime));
+
+  startPauseButton.addEventListener("click", startPauseButtonOnClick);
+  restartButton.addEventListener("click", restartButtonOnClick);
 };
