@@ -13,7 +13,8 @@ export const stopwatchModule = () => {
   const restartButton = stopwatch.querySelector(".stopwatch__button--restart");
   if (!startPauseButton || !restartButton) throw "Issue with buttons!";
 
-  let targetTime = $5_MINUTES; // TODO Custom or selectable time
+  let selectedTime = $5_MINUTES; // TODO Custom or selectable time
+  let targetTime = selectedTime;
   let isRunning = false;
   let start = null;
   let timerIntervalId = null;
@@ -70,8 +71,8 @@ export const stopwatchModule = () => {
   };
 
   const restartTimer = () => {
-    pauseTimer();
-    targetTime = $5_MINUTES;
+    clearInterval(timerIntervalId);
+    targetTime = selectedTime;
     startTimer();
   };
 
@@ -84,11 +85,7 @@ export const stopwatchModule = () => {
   };
 
   const restartButtonOnClick = () => {
-    if (isRunning) {
-      restartTimer();
-    } else {
-      startTimer();
-    }
+    restartTimer();
   };
 
   // Init
