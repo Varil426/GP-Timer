@@ -54,8 +54,12 @@ body {
 
         line-height: 100%;
 
-        &:last-child {
+        &:nth-last-child(2) {
           margin-left: auto;
+        }
+
+        &.active {
+          outline: solid 4px #40a3eb;
         }
       }
     }

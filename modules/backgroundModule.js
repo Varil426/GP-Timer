@@ -1,3 +1,5 @@
+import { cssHelper } from "../helpers/cssHelpers.js";
+
 export const backgroundModule = async () => {
   const stopwatch = document.querySelector(".stopwatch__wrapper");
   if (!stopwatch) throw "Couldn't find the stopwatch!";
@@ -6,12 +8,22 @@ export const backgroundModule = async () => {
     ".stopwatch__button--backgroundSwitch"
   );
 
-  if (!backgroundSwitchButton) throw "Background swtich button not found!";
+  if (backgroundSwitchButton) {
+    backgroundSwitchButton.addEventListener(
+      "click",
+      backgroundSwitchButtonOnClick
+    );
+  }
 
-  backgroundSwitchButton.addEventListener(
-    "click",
-    backgroundSwitchButtonOnClick
+  const backgroundAutoplayButton = stopwatch.querySelector(
+    ".stopwatch__button--backgroundAutoplay"
   );
+
+  if (backgroundAutoplayButton) {
+    backgroundAutoplayButton.addEventListener("click", () =>
+      backgroundAutoplayButtonOnClick(backgroundAutoplayButton)
+    );
+  }
 };
 
 const BACKGROUND_DIRECTORY_URL = "/assets/backgrounds";
@@ -45,9 +57,9 @@ const getCurrentBackground = () =>
     .groups.backgroundUrl;
 
 const setCurrentBackground = (url) =>
-  (document.body.style.backgroundImage = `url("${url}")`);
+  (document.body.style.backgroundImage = cssHelper.getCssUrl(url));
 
-const backgroundSwitchButtonOnClick = async () => {
+const switchBackground = async () => {
   const currentBackground = getCurrentBackground();
   const availableBackgrounds = (await getAvailableBackgrounds()).filter(
     (bg) => bg !== currentBackground
@@ -58,4 +70,27 @@ const backgroundSwitchButtonOnClick = async () => {
   );
 
   setCurrentBackground(availableBackgrounds[chosenBackgroundIndex]);
+};
+
+const ACTIVE_BUTTON_CSS_CLASS = "active";
+
+const backgroundSwitchButtonOnClick = switchBackground;
+
+let backgroundAutoplayIntervalId = null;
+const BACKGROUND_AUTOPLAY_DURATION = 5000;
+
+/**
+ * @param {Element} autoplayButton
+ */
+const backgroundAutoplayButtonOnClick = (autoplayButton) => {
+  if (!autoplayButton.classList.contains(ACTIVE_BUTTON_CSS_CLASS)) {
+    backgroundAutoplayIntervalId = setInterval(
+      switchBackground,
+      BACKGROUND_AUTOPLAY_DURATION
+    );
+  } else {
+    clearInterval(backgroundAutoplayIntervalId);
+  }
+
+  autoplayButton.classList.toggle(ACTIVE_BUTTON_CSS_CLASS);
 };
