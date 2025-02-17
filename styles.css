@@ -21,6 +21,8 @@ body {
 
   background-size: cover;
   background-repeat: no-repeat;
+
+  transition-duration: 500ms;
 }
 
 @layer components {
