@@ -4,6 +4,9 @@ export const backgroundModule = async () => {
   const stopwatch = document.querySelector(".stopwatch__wrapper");
   if (!stopwatch) throw "Couldn't find the stopwatch!";
 
+  // Preload backgrounds
+  getAvailableBackgrounds().then((backgrounds) => preloadImages(backgrounds));
+
   const backgroundSwitchButton = stopwatch.querySelector(
     ".stopwatch__button--backgroundSwitch"
   );
@@ -50,6 +53,14 @@ const getAvailableBackgrounds = async () => {
     (x) => new URL(x.href).pathname
   );
   return avilableBackgrounds;
+};
+
+/**
+ * Preloads images.
+ * @param {string[]} urls
+ */
+const preloadImages = (urls) => {
+  urls.forEach((url) => (new Image().src = url));
 };
 
 const getCurrentBackground = () =>
