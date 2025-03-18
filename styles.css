@@ -1,7 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Electrolize&display=swap");
 
 :root {
   --border-radius: 8px;
+
+  --modal-background-color: rgba(0, 0, 0, 0.5);
+  --modal-button-background-color: rgba(0, 0, 0, 0.5);
+  --button-background-color: rgba(0, 0, 0, 0.5);
+  --color: #fff;
+
+  --font: 400 1em "Doto", serif;
 }
 
 body {
@@ -13,11 +20,10 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-family: "Doto", serif;
+  font: var(--font);
   font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "ROND" 0;
+
+  color: var(--color);
 
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,7 +35,7 @@ body {
   .stopwatch__wrapper {
     width: 60%;
     border-radius: var(--border-radius);
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--modal-background-color);
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -49,7 +55,7 @@ body {
         font-size: 42px;
         border-radius: var(--border-radius);
         border: none;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: var(--modal-button-background-color);
         padding: 10px 5px;
 
         line-height: 100%;
@@ -62,6 +68,30 @@ body {
           outline: solid 4px #40a3eb;
         }
       }
+    }
+  }
+
+  footer {
+    position: absolute;
+    height: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+
+    .footer__button {
+      font-size: 42px;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      border: none;
+      background-color: var(--button-background-color);
+      padding: 10px 5px;
+
+      line-height: 100%;
     }
   }
 }
